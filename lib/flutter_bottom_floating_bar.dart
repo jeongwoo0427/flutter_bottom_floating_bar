@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'flutter_bottom_floating_item.dart';
 
 class FloatingNavigationBar extends StatefulWidget {
   ///It is items what you want to add
@@ -148,3 +147,15 @@ class _FloatingNavigationBarState extends State<FloatingNavigationBar> with Tick
     return currentPosition;
   }
 }
+
+
+
+class FloatingNavigationItem {
+  IconData icon;
+
+
+  FloatingNavigationItem({
+    required this.icon,
+  });
+}
+
