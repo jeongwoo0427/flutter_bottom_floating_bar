@@ -4,6 +4,9 @@ class FloatingNavigationBar extends StatefulWidget {
   ///It is items what you want to add
   List<FloatingNavigationItem> items;
 
+  ///
+  int selectedIndex;
+
   ///You can take what is current index when you tap navigation item
   Function(int index) onTap;
 
@@ -29,9 +32,11 @@ class FloatingNavigationBar extends StatefulWidget {
   Color? backgroundColor;
 
   FloatingNavigationBar(
-      {required this.items,
-        required this.onTap,
+      {
         Key? key,
+        required this.items,
+        required this.selectedIndex,
+        required this.onTap,
         this.bottomMargin = 15,
         this.elevation = 5,
         this.padding = const EdgeInsets.only(right: 14, left: 14, top: 10, bottom: 2),
@@ -46,7 +51,6 @@ class FloatingNavigationBar extends StatefulWidget {
 }
 
 class _FloatingNavigationBarState extends State<FloatingNavigationBar> with TickerProviderStateMixin {
-  int _selectedIndex = 0;
   final double _itemWidth = 40;
   final double _cursorWidth = 5;
 
@@ -89,7 +93,7 @@ class _FloatingNavigationBarState extends State<FloatingNavigationBar> with Tick
                     child: Stack(
                       children: [
                         AnimatedPositioned(
-                            left: _getCurrentCursorPosition(_itemWidth, _cursorWidth, navigationItems.length, _selectedIndex),
+                            left: _getCurrentCursorPosition(_itemWidth, _cursorWidth, navigationItems.length, widget.selectedIndex),
                             top: 0,
                             bottom: 0,
                             duration: Duration(milliseconds: 200),
@@ -115,9 +119,8 @@ class _FloatingNavigationBarState extends State<FloatingNavigationBar> with Tick
   }
 
   Widget _getNavigationItem(int index, FloatingNavigationItem item, Function(int index) onTap) {
-    AnimationController animation = AnimationController(vsync: this);
     ThemeData themeData = Theme.of(context);
-    Color? itemColor = _selectedIndex == index ? themeData.colorScheme.primary : null;
+    Color? itemColor = widget.selectedIndex == index ? themeData.colorScheme.primary : null;
     return Container(
       width: _itemWidth,
       height: _itemWidth,
@@ -130,7 +133,6 @@ class _FloatingNavigationBarState extends State<FloatingNavigationBar> with Tick
               color: itemColor,
             ),
             onTap: () {
-              _selectedIndex = index;
               onTap(index);
               setState(() {});
             },
@@ -139,7 +141,7 @@ class _FloatingNavigationBarState extends State<FloatingNavigationBar> with Tick
   }
 
   double _getCurrentCursorPosition(double itemWidth, double cursorWidth, int itemCount, int currentIndex) {
-    final double defaultPosition = itemWidth / 2 - cursorWidth/1.8;
+    final double defaultPosition = itemWidth / 2 - cursorWidth/2;
     double currentPosition = 0;
     if (currentIndex <= itemCount) {
       currentPosition = defaultPosition + (itemWidth * currentIndex);

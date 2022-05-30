@@ -1,3 +1,6 @@
+## 0.0.5
+* New Required parameter that named of selectedIndex
+
 ## 0.0.4
 * Update Documents
 
