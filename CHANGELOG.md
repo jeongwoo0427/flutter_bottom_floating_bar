@@ -1,3 +1,6 @@
+## 0.0.4
+* Update Documents
+
 ## 0.0.3
 * Intergrate All classes in flutter_buttom_floating_bar.dart
 
