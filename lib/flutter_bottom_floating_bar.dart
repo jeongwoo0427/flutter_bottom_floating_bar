@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'floating_navigation_item.dart';
+import 'flutter_bottom_floating_item.dart';
 
 class FloatingNavigationBar extends StatefulWidget {
   ///It is items what you want to add
